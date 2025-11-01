@@ -26,10 +26,19 @@ const schema = buildSchema(`
     genre: String!
   }
 
-  type Query {
+  type PaginatedBooks {
     books: [Book!]!
+    totalCount: Int!
+    totalPages: Int!
+    currentPage: Int!
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+  }
+
+  type Query {
+    books(page: Int, limit: Int): PaginatedBooks!
     book(id: ID!): Book
-    searchBooks(search: String!): [Book!]!
+    searchBooks(search: String!, page: Int, limit: Int): PaginatedBooks!
   }
 
   type Mutation {
