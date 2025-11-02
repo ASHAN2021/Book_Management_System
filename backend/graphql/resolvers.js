@@ -4,26 +4,19 @@ const Book = require("../model/Book.js");
 const { generateToken, authMiddleware } = require("../utils/auth.js");
 
 const resolvers = {
-  // === Queries ===
   books: async ({ page = 1, limit = 10 }) => {
     try {
-      // Ensure page and limit are positive integers
       const currentPage = Math.max(1, parseInt(page));
-      const pageSize = Math.min(Math.max(1, parseInt(limit)), 100); // Max 100 items per page
+      const pageSize = Math.min(Math.max(1, parseInt(limit)), 100);
       
-      // Calculate skip value
       const skip = (currentPage - 1) * pageSize;
-      
-      // Get total count
       const totalCount = await Book.countDocuments();
       
-      // Get paginated books
       const books = await Book.find()
         .skip(skip)
         .limit(pageSize)
-        .sort({ createdAt: -1 }); // Sort by newest first
+        .sort({ createdAt: -1 });
       
-      // Calculate metadata
       const totalPages = Math.ceil(totalCount / pageSize);
       const hasNextPage = currentPage < totalPages;
       const hasPreviousPage = currentPage > 1;
@@ -46,14 +39,11 @@ const resolvers = {
 
   searchBooks: async ({ search, page = 1, limit = 10 }) => {
     try {
-      // Ensure page and limit are positive integers
       const currentPage = Math.max(1, parseInt(page));
       const pageSize = Math.min(Math.max(1, parseInt(limit)), 100);
       
-      // Calculate skip value
       const skip = (currentPage - 1) * pageSize;
       
-      // Build search query
       const regex = new RegExp(search, "i");
       const searchQuery = {
         $or: [
@@ -62,17 +52,14 @@ const resolvers = {
           { genre: regex },
         ],
       };
-      
-      // Get total count for search results
+
       const totalCount = await Book.countDocuments(searchQuery);
       
-      // Get paginated search results
       const books = await Book.find(searchQuery)
         .skip(skip)
         .limit(pageSize)
         .sort({ createdAt: -1 });
-      
-      // Calculate metadata
+
       const totalPages = Math.ceil(totalCount / pageSize);
       const hasNextPage = currentPage < totalPages;
       const hasPreviousPage = currentPage > 1;
@@ -91,7 +78,6 @@ const resolvers = {
     }
   },
 
-  // === Mutations ===
   register: async ({ username, password }) => {
     console.log("Register mutation started");
 
