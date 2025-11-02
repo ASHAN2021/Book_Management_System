@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const generateToken = (user) => {
   const token = jwt.sign(
@@ -33,4 +33,4 @@ const authMiddleware = (context) => {
   return decoded;
 };
 
-module.exports = { generateToken, authMiddleware };
+export { generateToken, authMiddleware };

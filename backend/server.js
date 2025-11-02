@@ -1,9 +1,9 @@
-const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const schema = require("./graphql/schema.js");
-const resolvers = require("./graphql/resolvers.js");
-const connectDB = require("./db.js");
-const cors = require("cors");
+import express from "express";
+import { graphqlHTTP } from "express-graphql";
+import schema from "./graphql/schema.js";
+import resolvers from "./graphql/resolvers.js";
+import connectDB from "./db.js";
+import cors from "cors";
 
 
 const app = express();

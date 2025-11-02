@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const User = require("../model/User.js");
-const Book = require("../model/Book.js");
-const { generateToken, authMiddleware } = require("../utils/auth.js");
+import bcrypt from "bcryptjs";
+import User from "../model/User.js";
+import Book from "../model/Book.js";
+import { generateToken, authMiddleware } from "../utils/auth.js";
 
 const resolvers = {
   books: async ({ page = 1, limit = 10 }) => {
@@ -134,4 +134,4 @@ const resolvers = {
   },
 };
 
-module.exports = resolvers;
+export default resolvers;
