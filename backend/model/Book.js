@@ -11,7 +11,6 @@ const bookSchema = new Schema({
 });
 
 
-bookSchema.index({ title: 'text', author: 'text', genre: 'text' });
-bookSchema.index({ createdAt: -1 });
+
 
 export default mongoose.model("Book", bookSchema);
