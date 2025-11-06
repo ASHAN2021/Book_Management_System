@@ -15,7 +15,7 @@ app.use(express.json());
 connectDB();
 
 
-// ...existing code...
+
 app.use('/graphql', graphqlHTTP((req) => ({
   schema: schema,
   rootValue: resolvers,
